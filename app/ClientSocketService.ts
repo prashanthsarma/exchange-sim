@@ -16,6 +16,7 @@ export class ClientSocketService {
     constructor() {
         this.socket = io('http://localhost:3002');
         this.ListenEvent('loginStatus');
+        this.ListenEvent('relogin');
         this.ListenEvent('GetOrdersResponse');
         this.ListenEvent('OrderUpdate');
         this.ListenEvent('StockUpdate');
@@ -23,6 +24,7 @@ export class ClientSocketService {
     }
 
     SendMessage(type: string, obj: any) {
+        console.log('Sending event:' + type);
         this.socket.emit(type, JSON.stringify(obj));
     }
 

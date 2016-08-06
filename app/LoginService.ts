@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {ClientSocketService, IMessage} from './../../ClientSocketService';
-import { ClientDetail } from '../../../Shared/ClientDetail';
-import { LoginResponse } from '../../../Shared/Responses/LoginResponse';
+import {ClientSocketService, IMessage} from './ClientSocketService';
+import { ClientDetail } from '../Shared/ClientDetail';
+import { LoginResponse } from '../Shared/Responses/LoginResponse';
 
 
 @Injectable()
@@ -32,6 +32,8 @@ export class LoginService {
         switch (msg.MessageType) {
             case 'loginStatus': this.OnReceivedloginStatus(msg);
                 break;
+            case 'relogin': this._router.navigate(['/login']);
+            break;
             default:
                 break;
         }
@@ -46,16 +48,18 @@ export class LoginService {
             this.socketService.socketId = loginResponse.ConnectionId;
             console.log('Acquired Socket Id: ' + this.socketService.socketId);
             localStorage.setItem(this.clientDetail.User, this.socketService.socketId);
-            this._router.navigate(['/user']).then((p) => { console.log(p); }).catch((err) => console.log(err));
+            this._router.navigate(['/user']).catch((err) => console.log(err));
         }
         else {
             console.log('Login failed for user: ' + this.clientDetail.User);
         }
     }
 
-    checkCredentials() {
-        if (localStorage.getItem(this.clientDetail.User) === null) {
+    checkCredentials():boolean {
+        if (this.clientDetail === undefined || localStorage.getItem(this.clientDetail.User) === null) {
             this._router.navigate(['/login']);
+            return false;
         }
+        return true;
     }
 }

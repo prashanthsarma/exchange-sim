@@ -8,7 +8,6 @@ import {ClientSocketService, IMessage} from './../../ClientSocketService';
 
 @Injectable()
 export class StockService {
-    private socketId: string;
     private client: ClientBase;
 
 
@@ -17,7 +16,6 @@ export class StockService {
 
     Init(client: ClientBase) {
         this.client = client;
-        this.socketId = undefined;
         this.socketService.OnMessage.on((a) => this.OnMessageReceived(a));
         this.socketService.SendMessage('GetOrders', null);
     }

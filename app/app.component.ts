@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Router, ROUTER_DIRECTIVES, RouterConfig} from '@angular/router';
+import { Router, ROUTER_DIRECTIVES} from '@angular/router';
 import {ClientSocketService} from './ClientSocketService';
-import {LoginService} from './components/Login/LoginService';
+import {LoginService} from './LoginService';
 
 @Component({
     selector: 'my-app',
