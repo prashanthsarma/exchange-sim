@@ -1,0 +1,54 @@
+<div style="{height:60% padding-bottom:10px">
+    <p-dataTable [value]="Orders" scrollable="true" scrollHeight="95%">
+        <p-column field="Id" header="Id"></p-column>
+        <p-column field="Symbol" header="Symbol">abc</p-column>
+        <p-column field="Price" header="Price"></p-column>
+        <p-column field="OrderTypeString" header="Type"></p-column>
+        <p-column field="Quantity" header="Quantity"></p-column>
+        <p-column field="SideString" header="Side"></p-column>
+        <p-column field="FillPercent" header="% Fill"></p-column>
+        <p-column field="RemainingQuantity" header="Unfilled"></p-column>
+        <p-column field="StatusString" header="Status"></p-column>
+        <p-column field="FillAvgPrice" header="Avg.Price"></p-column>
+        <p-column field="TimeString" header="Time" [style]="{'width':'150px'}"></p-column>
+    </p-dataTable>
+
+    <form>
+        <div>
+            <label title="Symbol">
+            <input type="text" pInputText [(ngModel)]="NewQuote.Symbol" />
+            </label>
+            <label title="Price">
+            <input type="text" pInputText [(ngModel)]="NewQuote.Price" />
+            </label>
+            <label title="Quantity">
+            <input type="text" pInputText [(ngModel)]="NewQuote.Quantity" />
+            </label>
+            <label title="OrderType">
+            <p-dropdown [options]="OrderTypes" [(ngModel)]="NewQuote.OrderType"></p-dropdown>
+        </label>
+        </div>
+        <div>
+            <button pButton type="button" (click)="OnBuyClicked()" label="Buy"></button>
+            <button pButton type="button" (click)="OnSellClicked()" label="Sell"></button>
+        </div>
+    </form>
+</div>
+<footer>
+    <p-carousel numVisible=10 headerText="MarketData" [value]="MarketDatas" circular="circular" autoplayInterval="3000">
+        <template let-md>
+            <div class="ui-grid-row">
+                Symbol: {{md.Symbol}}
+            </div>
+            <div class="ui-grid-row">
+                Ask: {{md.Ask}}
+            </div>
+            <div class="ui-grid-row">
+                Bid: {{md.Bid}}
+            </div>
+            <div class="ui-grid-row">
+                Last: {{md.Last}}
+            </div>
+        </template>
+    </p-carousel>
+</footer>
