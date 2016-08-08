@@ -1,7 +1,7 @@
 import {Injectable } from '@angular/core';
 import { IQuote, Order } from '../../../Shared/Entities/Quote';
 import { IMarketData } from '../../../Shared/Entities/MarketData';
-import { ClientBase } from '../Base/ClientBase';
+import { ClientBase } from '../Client/ClientBase';
 import {ClientSocketService, IMessage} from './../../ClientSocketService';
 
 
@@ -11,7 +11,7 @@ export class StockService {
     private client: ClientBase;
 
 
-    constructor( private socketService: ClientSocketService) {
+    constructor(private socketService: ClientSocketService) {
     }
 
     Init(client: ClientBase) {
@@ -22,7 +22,7 @@ export class StockService {
 
     OnMessageReceived(msg: IMessage) {
         switch (msg.MessageType) {
-          case 'GetOrdersResponse': this.OnGetOrdersResponseReceived(msg);
+            case 'GetOrdersResponse': this.OnGetOrdersResponseReceived(msg);
                 break;
             case 'StockUpdate': this.OnStockUpdateReceived(msg);
                 break;
@@ -33,42 +33,30 @@ export class StockService {
         }
     }
 
-
-    
     private OnGetOrdersResponseReceived(msg: IMessage) {
         let quotes: IQuote[] = JSON.parse(msg.Message);
-        this.client.Orders = new Array<Order>();
+        let orders: Order[] = new Array<Order>();
         quotes.forEach(element => {
-            this.client.Orders.push(new Order(element));
+            orders.push(new Order(element));
         });
+        this.client.OnGetOrders(orders);
     }
 
     private OnStockUpdateReceived(msg: IMessage) {
         let order: Order = new Order(JSON.parse(msg.Message));
-        let exist = this.client.Orders.findIndex(o => o.Id === order.Id);
-        if (exist !== -1) {
-            this.client.Orders[exist] = order;
-        }
-        else {
-            this.client.Orders.push(order);
-        }
-
+        this.client.OnStockUpdate(order);
     }
 
     private OnMarketUpdateReceived(msg: IMessage) {
         let md: IMarketData = JSON.parse(msg.Message);
-
-        let exist = this.client.MarketDatas.findIndex(m => m.Symbol === md.Symbol);
-        if (exist !== -1) {
-            this.client.MarketDatas[exist] = md;
-        }
-        else {
-            this.client.MarketDatas.push(md);
-        }
-
+        this.client.OnMarketDataUpdate(md);
     }
 
     SendQuote(q: IQuote) {
         this.socketService.SendMessage('quote', q);
+    }
+
+    CancelOrder(symbol: string, id: number) {
+        this.socketService.SendMessage('CancelOrder', { Id: id, Symbol: symbol });
     }
 }

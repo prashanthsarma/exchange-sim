@@ -4,7 +4,7 @@ export enum OrderType { Specific, Market, Limit, StopLoss }
 
 export enum ExecutionType { Day, IoC, FoK }
 
-export enum OrderStatus { Initial, Pending, PartialFill, Fill, Cancelled }
+export enum OrderStatus { Initial, Pending, PartialFill, Fill, Cancelled, Modified }
 
 export class Fill {
     Price: number;

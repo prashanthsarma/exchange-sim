@@ -14,7 +14,7 @@ export class ClientSocketService {
     }
 
     constructor() {
-        this.socket = io('http://localhost:3002');
+        this.socket = io('http://192.168.0.4:3002');
         this.ListenEvent('loginStatus');
         this.ListenEvent('relogin');
         this.ListenEvent('GetOrdersResponse');
