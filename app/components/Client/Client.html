@@ -1,54 +1,53 @@
-<div style="height:60%">
-    <p-dataTable [value]="Orders" scrollable="true" scrollHeight="75%">
-        <p-column field="Id" header="Id"></p-column>
-        <p-column field="Symbol" header="Symbol">abc</p-column>
-        <p-column field="Price" header="Price"></p-column>
-        <p-column field="OrderTypeString" header="Type"></p-column>
-        <p-column field="Quantity" header="Quantity"></p-column>
-        <p-column field="SideString" header="Side"></p-column>
-        <p-column field="FillPercent" header="% Fill"></p-column>
-        <p-column field="RemainingQuantity" header="Unfilled"></p-column>
-        <p-column field="StatusString" header="Status"></p-column>
-        <p-column field="FillAvgPrice" header="Avg.Price"></p-column>
-        <p-column field="TimeString" header="Time"></p-column>
-    </p-dataTable>
+<div>
+    <div style="height:60%">
+        <p-dataTable [value]="Orders" scrollable="true" scrollHeight="75%">
+            <p-column field="Id" header="Id"></p-column>
+            <p-column field="Symbol" header="Symbol">abc</p-column>
+            <p-column field="Price" header="Price"></p-column>
+            <p-column field="OrderTypeString" header="Type"></p-column>
+            <p-column field="Quantity" header="Quantity"></p-column>
+            <p-column field="SideString" header="Side"></p-column>
+            <p-column field="FillPercent" header="% Fill"></p-column>
+            <p-column field="RemainingQuantity" header="Unfilled"></p-column>
+            <p-column field="StatusString" header="Status"></p-column>
+            <p-column field="FillAvgPrice" header="Avg.Price"></p-column>
+            <p-column field="TimeString" header="Time"></p-column>
+        </p-dataTable>
 
-    <form>
-        <div>
-            <label title="Symbol">Symbol
+        <form>
+            <div>
+                <label title="Symbol">Symbol
             <input type="text" pInputText [(ngModel)]="NewQuote.Symbol" name="symbol"/>
             </label>
-            <label title="Price">Price
+                <label title="Price">Price
             <input type="text" pInputText [(ngModel)]="NewQuote.Price" name="price"/>
             </label>
-            <label title="Quantity">Quantity
+                <label title="Quantity">Quantity
             <input type="text" pInputText [(ngModel)]="NewQuote.Quantity" name="quantity"/>
             </label>
-            <label title="OrderType">OrderType
+                <label title="OrderType">OrderType
             <p-dropdown [options]="OrderTypes" [(ngModel)]="NewQuote.OrderType" name="orderType"></p-dropdown>
         </label>
-        </div>
-        <div>
-            <button pButton type="button" (click)="OnBuyClicked()" label="Buy"></button>
-            <button pButton type="button" (click)="OnSellClicked()" label="Sell"></button>
-        </div>
-    </form>
-</div>
-<div>
-    <p-carousel numVisible=10 headerText="MarketData" [value]="MarketDatas" circular="circular" autoplayInterval="3000">
-        <template let-md>
-            <div class="ui-grid-row">
-                Symbol: {{md.Symbol}}
             </div>
-            <div class="ui-grid-row">
-                Ask: {{md.Ask}}
+            <div>
+                <button pButton type="button" (click)="OnBuyClicked()" label="Buy"></button>
+                <button pButton type="button" (click)="OnSellClicked()" label="Sell"></button>
             </div>
-            <div class="ui-grid-row">
-                Bid: {{md.Bid}}
-            </div>
-            <div class="ui-grid-row">
-                Last: {{md.Last}}
-            </div>
-        </template>
-    </p-carousel>
+        </form>
+    </div>
+    <div>
+        <p-carousel numVisible=10 headerText="MarketData" [value]="MarketDatas" circular="circular" autoplayInterval="3000">
+            <template let-md>
+                <div class="ui-g">
+                    <div class="ui-grid-row">{{md.Symbol}}</div>
+                    <br/>
+                    <div class="ui-grid-row">Ask: {{md.Ask}}</div>
+                    <br/>
+                    <div class="ui-grid-row">Bid: {{md.Bid}}</div>
+                    <br/>
+                    <div class="ui-grid-row">Last: {{md.Last}}</div>
+                </div>
+            </template>
+        </p-carousel>
+    </div>
 </div>
