@@ -31,6 +31,9 @@ export class LoginService {
     public get User(): string {
         return this.clientDetail.User;
     }
+    public get UserType(): string {
+        return ClientType[this.clientDetail.Type];
+    }
 
     private OnMessageReceived(msg: IMessage) {
         switch (msg.MessageType) {
@@ -52,8 +55,7 @@ export class LoginService {
             this.socketService.socketId = loginResponse.ConnectionId;
             console.log('Acquired Socket Id: ' + this.socketService.socketId);
             localStorage.setItem(this.clientDetail.User, this.socketService.socketId);
-            let mainPage: string = '/' + ClientType[this.clientDetail.Type];
-            this._router.navigate([mainPage]).catch((err) => console.log(err));
+            this._router.navigate(['/Home', this.UserType]).catch((err) => console.log(err));
         }
         else {
             console.log('Login failed for user: ' + this.clientDetail.User);

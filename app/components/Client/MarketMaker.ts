@@ -56,8 +56,9 @@ export class MarketMaker extends ClientBase {
             this.marketAI.OnExistingMarketDataUpdate(md);
         }
         else {
+            setTimeout(() => {
             this.marketAI.OnNewMarketDataUpdate(md);
-
+            }, 3000);
         }
         return exist;
     }
@@ -78,6 +79,7 @@ export class MarketMaker extends ClientBase {
 
 export class SymbolQuoteHistory {
     MarketData: IMarketData;
+    PreviousQuotePrice: IMarketData;
     BuyQuotes: IQuote[];
     SellQuotes: IQuote[];
     PreviousQuoteSides: Side[];
@@ -124,6 +126,7 @@ export class MarketAIService {
             this.SymbolQuoteMap[md.Symbol] = quoteHistory;
         }
         quoteHistory.MarketData = md;
+        quoteHistory.PreviousQuotePrice = { Ask: md.Last, Bid: md.Last, Last: md.Last };
         this.SendNewQuoteIfRequired(quoteHistory);
     }
 
@@ -174,23 +177,31 @@ export class MarketAIService {
             ExecutionType: ExecutionType.Day,
             Timestamp: new Date(Date.now())
         };
+        if (side === Side.Sell) {
+            quoteHistory.PreviousQuotePrice.Ask = price;
+        }
+        else if (side === Side.Buy) {
+            quoteHistory.PreviousQuotePrice.Bid = price;
+        }
         this.marketMaker.SendQuote(newQuote);
     }
 
     SendNewQuoteIfRequired(quoteHistory: SymbolQuoteHistory) {
-        while (quoteHistory.BuyQuotes.length > 0) {
-            let buy = quoteHistory.BuyQuotes.pop();
-            this.marketMaker.CancelOrder(quoteHistory.MarketData.Symbol, buy.Id);
-        }
-        let buyPrice = this.GetNewPrice(quoteHistory, Side.Buy);
-        this.CreateMarketMakerQuote(quoteHistory, buyPrice, Side.Buy);
+        if (quoteHistory.BuyQuotes.length < 1) {
+            //let buy = quoteHistory.BuyQuotes.pop();
+            //this.marketMaker.CancelOrder(quoteHistory.MarketData.Symbol, buy.Id);
+            let buyPrice = this.GetNewPrice(quoteHistory, Side.Buy);
+            this.CreateMarketMakerQuote(quoteHistory, buyPrice, Side.Buy);
 
-        while (quoteHistory.SellQuotes.length > 0) {
-            let sell = quoteHistory.SellQuotes.pop();
-            this.marketMaker.CancelOrder(quoteHistory.MarketData.Symbol, sell.Id);
         }
-        let sellPrice = this.GetNewPrice(quoteHistory, Side.Sell);
-        this.CreateMarketMakerQuote(quoteHistory, sellPrice, Side.Sell);
+
+        if (quoteHistory.SellQuotes.length < 1) {
+            //let sell = quoteHistory.SellQuotes.pop();
+            //this.marketMaker.CancelOrder(quoteHistory.MarketData.Symbol, sell.Id);
+            let sellPrice = this.GetNewPrice(quoteHistory, Side.Sell);
+            this.CreateMarketMakerQuote(quoteHistory, sellPrice, Side.Sell);
+
+        }
 
     }
 
@@ -199,7 +210,7 @@ export class MarketAIService {
     }
 
     private GetNewPrice(quoteHistory: SymbolQuoteHistory, side: Side): number {
-        let initialSpread = 0.001;
+        let initialSpread = 0.0005;
         let sideMultiplier = 1;
         for (let i = quoteHistory.PreviousQuoteSides.length - 1; i >= 0; i--) {
             if (quoteHistory.PreviousQuoteSides[i] === side) {
@@ -209,16 +220,18 @@ export class MarketAIService {
                 sideMultiplier -= 0.1 * (5 - i);
             }
         }
-        let sideMovement = quoteHistory.MarketData.Last * initialSpread * sideMultiplier;
+        let sideMovement = (quoteHistory.PreviousQuotePrice.Bid + quoteHistory.PreviousQuotePrice.Ask) * initialSpread * sideMultiplier;
         let sentimentMultiplier = 0;
         let sentimentMovement = quoteHistory.MarketData.Last * initialSpread * sentimentMultiplier;
 
-        let price = quoteHistory.MarketData.Last;
+        let price = 0; // quoteHistory.MarketData.Last;
         if (side === Side.Sell) {
+            price = quoteHistory.PreviousQuotePrice.Bid;
             price += sideMovement;
             price += sentimentMovement;
         }
         else {
+            price = quoteHistory.PreviousQuotePrice.Ask;
             price -= sideMovement;
             price -= sentimentMovement;
 
