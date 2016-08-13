@@ -21,6 +21,7 @@ export class ClientSocketService {
         this.ListenEvent('OrderUpdate');
         this.ListenEvent('StockUpdate');
         this.ListenEvent('MarketUpdate');
+        this.ListenEvent('Positions');
     }
 
     SendMessage(type: string, obj: any) {

@@ -1,0 +1,12 @@
+<div>
+    <div>
+        <button pButton type="button" (click)="OnRefreshClicked()" label="Refresh"></button>
+    </div>
+    <div>
+        <p-dataTable [value]="Positions" scrollable="true">
+            <p-column field="Symbol" header="Symbol">abc</p-column>
+            <p-column field="Quantity" header="Quantity"></p-column>
+            <p-column field="NotionalQuantity" header="Notional Quantity"></p-column>
+        </p-dataTable>
+    </div>
+</div>
