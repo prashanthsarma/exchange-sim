@@ -20,10 +20,10 @@
             <input type="text" pInputText [(ngModel)]="NewQuote.Symbol" name="symbol"/>
             </label>
                 <label title="Price">Price
-            <input type="text" pInputText [(ngModel)]="NewQuote.Price" name="price"/>
+                    <p-spinner size="30" [(ngModel)]="NewQuote.Price" [min]="0" [step]="0.1" name="price"></p-spinner>
             </label>
                 <label title="Quantity">Quantity
-            <input type="text" pInputText [(ngModel)]="NewQuote.Quantity" name="quantity"/>
+                    <p-spinner size="30" [(ngModel)]="NewQuote.Quantity" [min]="0" [step]="100" name="quantity"></p-spinner>
             </label>
                 <label title="OrderType">OrderType
             <p-dropdown [options]="OrderTypes" [(ngModel)]="NewQuote.OrderType" name="orderType"></p-dropdown>

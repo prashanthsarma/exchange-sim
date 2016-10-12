@@ -4,6 +4,7 @@ import {ClientSocketService, IMessage} from './ClientSocketService';
 import { ClientDetail } from '../Shared/ClientDetail';
 import { LoginResponse } from '../Shared/Responses/LoginResponse';
 import { ClientType } from './../Shared/Entities/Enums';
+import { ConfigService } from './ConfigService';
 
 
 @Injectable()
@@ -12,7 +13,8 @@ export class LoginService {
 
     constructor(
         private _router: Router,
-        private socketService: ClientSocketService) {
+        private socketService: ClientSocketService,
+        private configService: ConfigService) {
 
         this.socketService.OnMessage.on((a) => this.OnMessageReceived(a));
     }

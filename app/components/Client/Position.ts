@@ -4,14 +4,13 @@ import { ClientBase } from '../Client/ClientBase';
 import {ClientSocketService, IMessage} from './../../ClientSocketService';
 import {DataTable, Column, Button} from 'primeng/primeng';
 
-
 @Component({
     templateUrl: './app/components/Client/Position.html',
     selector: 'positions',
     directives: [DataTable, Column, Button]
 })
 export class Position {
-    
+
     Positions: IPositionData[];
     constructor(private socketService: ClientSocketService) {
         this.Positions = new Array<IPositionData>();

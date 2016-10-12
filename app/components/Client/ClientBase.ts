@@ -40,10 +40,11 @@ export class ClientBase implements OnInit {
     }
 
     InitQuote(user: string) {
+        
         this.NewQuote = {
             Symbol: 'TCS',
             Side: Side.Buy,
-            Price: 2550,
+            Price: 0,
             Quantity: 1000,
             User: user,
             OrderType: OrderType.Market,

@@ -1,16 +1,5 @@
-import { bootstrap }    from '@angular/platform-browser-dynamic';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from './app.module';
 
-import { AppComponent } from './app.component';
-import { provideRouter } from '@angular/router';
-import {routes} from './routes';
-import { provideForms, disableDeprecatedForms } from '@angular/forms';
+platformBrowserDynamic().bootstrapModule(AppModule);
 
-
-bootstrap(AppComponent, [provideForms(),
-  disableDeprecatedForms(), provideRouter(routes)])
-  .catch(err => console.error(err));
-
-
-//bootstrap(MarketMaker).catch(function(err){ console.log(err); });
-
-//bootstrap(AppComponent);

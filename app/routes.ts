@@ -1,11 +1,11 @@
-import { RouterConfig } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { Login } from './components/Login/Login';
 import { MarketMaker } from './components/Client/MarketMaker';
 import { User } from './components/Client/User';
 import { Home } from './components/Client/Home';
 import { Position } from './components/Client/Position';
 
-export const routes: RouterConfig = [
+const routes: Routes = [
   { path: '', component: Login },
   { path: 'login', component: Login },
   {
@@ -15,9 +15,7 @@ export const routes: RouterConfig = [
       { path: 'User', component: User },
       { path: 'Positions', component: Position }]
   },
-
-
-
 ];
 
+export const routing = RouterModule.forRoot(routes);
 

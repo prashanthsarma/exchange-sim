@@ -4,11 +4,10 @@ import { CORE_DIRECTIVES } from '@angular/common';
 import {LoginService} from './../../LoginService';
 import { ClientDetail } from '../../../Shared/ClientDetail';
 import { ClientType } from '../../../Shared/Entities/Enums';
-import { Button, InputText, SelectItem, Dropdown } from 'primeng/primeng';
+import { SelectItem } from 'primeng/primeng';
 
 @Component({
     selector: 'login-m',
-    directives: [ROUTER_DIRECTIVES, CORE_DIRECTIVES, Button, InputText, Dropdown],
     template: `
         <div class="container" >
             <div class="title">
