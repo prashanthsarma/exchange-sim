@@ -1,4 +1,4 @@
-import { ClientType } from './Entities/Enums';
+import { ClientType } from './Entities/Enums.js';
 
 export class ClientDetail{
     User: string;

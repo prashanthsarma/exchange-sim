@@ -1,6 +1,4 @@
 import {Component} from '@angular/core';
-import { ROUTER_DIRECTIVES} from '@angular/router';
-import { CORE_DIRECTIVES } from '@angular/common';
 import {LoginService} from './../../LoginService';
 import { ClientDetail } from '../../../Shared/ClientDetail';
 import { ClientType } from '../../../Shared/Entities/Enums';

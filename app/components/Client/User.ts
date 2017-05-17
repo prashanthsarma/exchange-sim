@@ -5,7 +5,7 @@ import { IMarketData } from '../../../Shared/Entities/MarketData';
 import { IQuote, Order, OrderType, ExecutionType } from '../../../Shared/Entities/Quote';
 import { ClientBase } from './ClientBase';
 import { InputText } from 'primeng/primeng';
-import {DataTable, Column, Button, Dropdown, Carousel, Spinner} from 'primeng/primeng';
+import {DataTableModule, SharedModule, ButtonModule, DropdownModule, CarouselModule, SpinnerModule} from 'primeng/primeng';
 import {LoginService} from './../../LoginService';
 /**
  * MarketMaker
@@ -14,7 +14,7 @@ import {LoginService} from './../../LoginService';
     templateUrl: './app/components/Client/Client.html',
     selector: 'user',
     providers: [StockService],
-    directives: [DataTable, Column, Button, Dropdown, InputText, Carousel, Spinner]
+    
 })
 export class User extends ClientBase {
 

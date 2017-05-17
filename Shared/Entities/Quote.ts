@@ -1,4 +1,4 @@
-import { Side } from './Enums';
+import { Side } from './Enums.js';
 
 export enum OrderType { Specific, Market, Limit, StopLoss }
 

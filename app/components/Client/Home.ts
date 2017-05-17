@@ -1,10 +1,9 @@
-import { ActivatedRoute, Router, ROUTER_DIRECTIVES } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 import {LoginService} from './../../LoginService';
 
 @Component({
   selector: 'Home',
-  directives: [ROUTER_DIRECTIVES],
   templateUrl: './app/components/Client/Home.html',
 })
 export class Home {

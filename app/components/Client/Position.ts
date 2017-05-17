@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { IPositionData } from '../../../Shared/Entities/PositionData';
 import { ClientBase } from '../Client/ClientBase';
 import {ClientSocketService, IMessage} from './../../ClientSocketService';
-import {DataTable, Column, Button} from 'primeng/primeng';
+import {DataTableModule, SharedModule, ButtonModule} from 'primeng/primeng';
 
 @Component({
     templateUrl: './app/components/Client/Position.html',
     selector: 'positions',
-    directives: [DataTable, Column, Button]
+    
 })
 export class Position {
 

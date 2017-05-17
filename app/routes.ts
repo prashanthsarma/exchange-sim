@@ -1,4 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
+import { ModuleWithProviders }  from '@angular/core';
 import { Login } from './components/Login/Login';
 import { MarketMaker } from './components/Client/MarketMaker';
 import { User } from './components/Client/User';

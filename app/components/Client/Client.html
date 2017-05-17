@@ -2,7 +2,7 @@
     <div style="height:60%">
         <p-dataTable [value]="Orders" scrollable="true" scrollHeight="75%">
             <p-column field="Id" header="Id"></p-column>
-            <p-column field="Symbol" header="Symbol">abc</p-column>
+            <p-column field="Symbol" header="Symbol"></p-column>
             <p-column field="Price" header="Price"></p-column>
             <p-column field="OrderTypeString" header="Type"></p-column>
             <p-column field="Quantity" header="Quantity"></p-column>
@@ -36,8 +36,8 @@
         </form>
     </div>
     <div>
-        <p-carousel numVisible=10 headerText="MarketData" [value]="MarketDatas" circular="circular" autoplayInterval="3000">
-            <template let-md>
+        <!--<p-carousel numVisible=10 headerText="MarketData" [value]="MarketDatas" circular="circular" autoplayInterval="3000">
+            <template let-md ptemplate="item">
                 <div class="ui-g">
                     <div class="ui-grid-row">{{md.Symbol}}</div>
                     <br/>
@@ -48,6 +48,6 @@
                     <div class="ui-grid-row">Last: {{md.Last}}</div>
                 </div>
             </template>
-        </p-carousel>
+        </p-carousel>-->
     </div>
 </div>
