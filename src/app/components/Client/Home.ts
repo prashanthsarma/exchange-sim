@@ -8,9 +8,10 @@ import {LoginService} from './../../LoginService';
 })
 export class Home {
   userType: string;
-  userTypeRoute: string;
+  userName: string;
   constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService) {
     this.userType = this.loginService.UserType;
+    this.userName = this.loginService.User;
     //this.router.navigate(['../', this.userType], {relativeTo: this.route});
   }
 }
